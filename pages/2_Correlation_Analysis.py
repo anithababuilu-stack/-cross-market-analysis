@@ -19,7 +19,7 @@ crypto_df = pd.read_sql(crypto_query, conn)
 
 # Load oil data
 oil_query = """
-SELECT date, AVG(price) AS oil_price
+SELECT date, AVG(Price) AS oil_price
 FROM oil_prices
 GROUP BY date
 """
@@ -27,7 +27,7 @@ oil_df = pd.read_sql(oil_query, conn)
 
 # Load stock data
 stock_query = """
-SELECT date, AVG(close) AS stock_price
+SELECT date, AVG(Close) AS stock_price
 FROM stocks
 GROUP BY date
 """
