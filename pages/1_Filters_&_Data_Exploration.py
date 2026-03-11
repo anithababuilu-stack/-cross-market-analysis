@@ -29,21 +29,21 @@ AND date BETWEEN '{start_date}' AND '{end_date}'
 oil_query = f"""
 SELECT ROUND(AVG(Price), 2) AS avg_oil
 FROM oil_prices
-WHERE date BETWEEN '{start_date}' AND '{end_date}'
+WHERE Date BETWEEN '{start_date}' AND '{end_date}'
 """
 
 sp500_query = f"""
 SELECT ROUND(AVG(Close), 2) AS avg_sp500
 FROM stock_prices
 WHERE ticker = '^GSPC'
-AND date BETWEEN '{start_date}' AND '{end_date}'
+AND Date BETWEEN '{start_date}' AND '{end_date}'
 """
 
 nifty_query = f"""
 SELECT ROUND(AVG(Close), 2) AS avg_nifty
 FROM stock_prices
 WHERE ticker = '^NSEI'
-AND date BETWEEN '{start_date}' AND '{end_date}'
+AND Date BETWEEN '{start_date}' AND '{end_date}'
 """
 
 btc = pd.read_sql(bitcoin_query, conn).iloc[0, 0]
