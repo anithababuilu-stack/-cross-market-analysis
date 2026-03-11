@@ -147,3 +147,16 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+## 📸 Dashboard Preview
+
+### Home Dashboard
+![Home Dashboard](screenshots/home_dashboard.png)
+
+### Filters & Data Exploration
+![Filters Page](screenshots/filters_page.png)
+
+### SQL Query Runner
+![SQL Query Runner](screenshots/sql_runner.png)
+
+### Crypto Analysis
+![Crypto Analysis](screenshots/crypto_analysis.png)
