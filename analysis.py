@@ -272,7 +272,7 @@ pd.read_sql("SELECT * FROM Crypto_prices LIMIT 5", connection)
 cursor.execute("""
 CREATE TABLE Oil_prices (
     date DATE PRIMARY KEY,
-    price_usd DECIMAL(18,6)
+    price_inr DECIMAL(18,6)
 )
 """)
 
