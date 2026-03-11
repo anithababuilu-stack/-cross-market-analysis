@@ -7,17 +7,25 @@ st.set_page_config(
 )
 
 st.title("📊 Cross Market Analysis Dashboard")
-st.subheader("Crypto, Oil & Stocks")
+st.subheader("Crypto, Oil & Stock Market Analysis")
 
-st.write("""
-Welcome to the Cross Market Analysis project.
+st.markdown("""
+This Streamlit app contains 3 main pages:
 
-Use the sidebar to explore:
-- Market Overview
-- Crypto Analysis
-- Stock Analysis
-- Oil Analysis
-- Cross Market Comparison
+### 1. Filters & Data Exploration
+- Select a date range
+- View average Bitcoin, Oil, S&P 500, and NIFTY prices
+- View combined daily market snapshot
+
+### 2. SQL Query Runner
+- Choose a predefined SQL query
+- Run the query directly inside Streamlit
+- See results in table format
+
+### 3. Top 3 Crypto Analysis
+- Choose one cryptocurrency
+- Filter by date range
+- View daily prices and trend
 """)
 
-st.info("Select a page from the left sidebar.")
+st.info("Use the left sidebar to open a page.")
