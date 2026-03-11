@@ -21,7 +21,7 @@ queries = {
         LIMIT 10
     """,
     "Average Oil Price by Year": """
-        SELECT SUBSTR(date, 1, 4) AS year, ROUND(AVG(Price), 2) AS avg_oil_price
+        SELECT SUBSTR(Date, 1, 4) AS year, ROUND(AVG(Price), 2) AS avg_oil_price
         FROM oil_prices
         GROUP BY year
         ORDER BY year
@@ -32,10 +32,10 @@ queries = {
         GROUP BY ticker
     """,
     "S&P 500 vs NIFTY": """
-        SELECT date, ticker, Close
+        SELECT Date, ticker, Close
         FROM stock_prices
         WHERE ticker IN ('^GSPC', '^NSEI')
-        ORDER BY date
+        ORDER BY Date
     """
 }
 
