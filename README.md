@@ -1,8 +1,13 @@
-## 📊 Cross Market Analysis: Crypto, Oil & Stocks
+# 📊 Cross Market Analysis: Crypto, Oil & Stocks
 
-This project analyzes the relationship between cryptocurrency prices, oil prices, and stock market indices using **SQL analytics and a Streamlit dashboard**.
+![Python](https://img.shields.io/badge/Python-3.10-blue)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
+![SQL](https://img.shields.io/badge/SQL-Analytics-green)
+![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
 
-The goal is to collect financial data from multiple sources, store it in a relational database, and perform cross-market analysis.
+This project analyzes the relationship between **cryptocurrency prices, oil prices, and stock market indices** using **SQL analytics and a Streamlit dashboard**.
+
+The goal is to collect financial data from multiple sources, store it in a relational database, and perform **cross-market analysis**.
 
 ---
 
@@ -19,7 +24,6 @@ The goal is to collect financial data from multiple sources, store it in a relat
 ---
 
 # 📂 Project Structure
-
 cross-market-analysis/
 
 │
@@ -34,13 +38,40 @@ cross-market-analysis/
 
 └── pages/
 
-&nbsp;&nbsp;&nbsp;&nbsp;├── 1_Filters_&_Data_Exploration.py
+    ├── 1_Filters_&_Data_Exploration.py
 
-&nbsp;&nbsp;&nbsp;&nbsp;├── 2_SQL_Query_Runner.py
+    ├── 2_SQL_Query_Runner.py
 
-&nbsp;&nbsp;&nbsp;&nbsp;└── 3_Top_3_Crypto_Analysis.py
+    └── 3_Top_3_Crypto_Analysis.py
+    
+---
 
-## 📸 Dashboard Preview
+# 📊 Project Architecture
+CoinGecko API + Yahoo Finance API
+
+↓
+
+Python Data Collection (ETL)
+
+↓
+
+SQLite Database
+
+↓
+
+SQL Analytics
+
+↓
+
+Streamlit Dashboard
+
+↓
+
+User Visualization
+
+---
+
+# 📸 Dashboard Preview
 
 ### Home Dashboard
 ![Home Dashboard](screenshots/home_dashboard.png)
@@ -56,7 +87,7 @@ cross-market-analysis/
 
 ---
 
-# 📊 Streamlit App Pages
+# 🖥 Streamlit App Pages
 
 ## 1️⃣ Filters & Data Exploration
 
@@ -75,13 +106,13 @@ A **daily market snapshot table** combines crypto, oil, and stock data using SQL
 
 ## 2️⃣ SQL Query Runner
 
-This page demonstrates **SQL analytics inside Streamlit**.
+This page demonstrates **SQL analytics directly inside Streamlit**.
 
 Features:
 
 - Dropdown menu with **30 predefined SQL queries**
 - Run SQL queries directly from the dashboard
-- Query results displayed as tables
+- Query results displayed in table format
 
 Example queries include:
 
@@ -111,14 +142,15 @@ The page displays:
 # 🛠 Data Sources
 
 ## Cryptocurrency Data
+
 Collected from **CoinGecko API**
 
 Includes:
 
-- market_cap
-- market_cap_rank
-- total_volume
-- circulating_supply
+- Market cap
+- Market cap rank
+- Total volume
+- Circulating supply
 - ATH / ATL prices
 
 ---
@@ -161,4 +193,3 @@ Install dependencies:
 
 ```bash
 pip install -r requirements.txt
-
