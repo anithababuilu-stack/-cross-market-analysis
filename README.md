@@ -4,7 +4,8 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
 ![SQL](https://img.shields.io/badge/SQL-Analytics-green)
 ![SQLite](https://img.shields.io/badge/Database-SQLite-lightgrey)
-
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-purple)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 This project analyzes the relationship between **cryptocurrency prices, oil prices, and stock market indices** using **SQL analytics and a Streamlit dashboard**.
 
 The goal is to collect financial data from multiple sources, store it in a relational database, and perform **cross-market analysis**.
