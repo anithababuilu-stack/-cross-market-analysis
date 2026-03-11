@@ -11,7 +11,7 @@ st.write("This page shows correlation between crypto, oil, and stock markets.")
 
 # Load crypto data
 crypto_query = """
-SELECT date, AVG(price_usd) AS crypto_price
+SELECT date, AVG(price_inr) AS crypto_price
 FROM crypto_prices
 GROUP BY date
 """
