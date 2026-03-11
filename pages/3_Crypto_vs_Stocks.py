@@ -19,7 +19,7 @@ crypto_df = pd.read_sql(crypto_query, conn)
 
 # Stock data
 stock_query = """
-SELECT date, AVG(close) AS stock_price
+SELECT date, AVG(Close) AS stock_price
 FROM stocks
 GROUP BY date
 """
