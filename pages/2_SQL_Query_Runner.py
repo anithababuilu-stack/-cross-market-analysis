@@ -82,26 +82,39 @@ ORDER BY avg_price DESC
 LIMIT 1;
 """,
 
- "10. Bitcoin % Change (2025 vs 2026)": """
-    SELECT 
-        ROUND(((result2.price_inr - result1.price_inr) * 100.0 / result1.price_inr),2) AS percent_change
-    FROM 
-        (SELECT price_inr
-        FROM Crypto_prices
-        WHERE coin_id = 'bitcoin'
-          AND date BETWEEN '2025-03-01' AND '2025-07-31'
-        ORDER BY date ASC
-        LIMIT 1
-    ) q1
-CROSS JOIN
-    (
-        SELECT price_inr
-        FROM Crypto_prices
-        WHERE coin_id = 'bitcoin'
-          AND date BETWEEN '2025-08-01' AND '2025-09-30'
-        ORDER BY date ASC
-        LIMIT 1) result2
-    """,
+ "10. Bitcoin % Change (2025 vs 2026)": CP_query5_2025 = """
+SELECT price_inr FROM Crypto_Prices
+WHERE coin_id='bitcoin'
+AND date BETWEEN '2025-03-01' AND '2025-07-31'
+ORDER BY date LIMIT 1
+"""
+
+cursor.execute(CP_query5_2025)
+result1 = cursor.fetchall()
+
+print(result1)
+
+
+
+
+CP_query5_2026 = """
+SELECT price_inr FROM Crypto_Prices
+WHERE coin_id='bitcoin'
+AND date BETWEEN '2025-08-01' AND '2026-01-31'
+ORDER BY date LIMIT 1
+"""
+
+cursor.execute(CP_query5_2026)
+result2 = cursor.fetchone()
+print(result2)
+
+price_2025 = float(result1[0][0])   # first element of the first row
+price_2026 = float(result2[0])      # first element of the tuple from fetchone()
+
+# Calculate percentage change
+percent_change = ((price_2026 - price_2025) / price_2025) * 100
+
+print("Bitcoin % change:", round(percent_change,2), "%")""",
 
 
 # ---- OIL ----
