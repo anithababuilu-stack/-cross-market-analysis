@@ -69,19 +69,23 @@ FROM Crypto_prices
 GROUP BY coin_id
 """,
 
-"9. Highest Crypto Price":
-"""
-SELECT coin_id, MAX(price_inr)
-FROM Crypto_prices
-GROUP BY coin_id
-""",
-
-"10. Lowest Crypto Price":
-"""
-SELECT coin_id, MIN(price_inr)
-FROM Crypto_prices
-GROUP BY coin_id
-""",
+ "10. Bitcoin % Change (2025 vs 2026)": """
+    SELECT 
+        (
+            (q2.price_inr - q1.price_inr) * 100.0 / q1.price_inr
+        ) AS percent_change
+    FROM 
+        (SELECT price_inr FROM Crypto_prices
+         WHERE coin_id='bitcoin'
+         AND date BETWEEN '2025-03-01' AND '2025-07-31'
+         ORDER BY date ASC LIMIT 1) q1,
+        
+        (SELECT price_inr FROM Crypto_prices
+         WHERE coin_id='bitcoin'
+         AND date BETWEEN '2025-08-01' AND '2026-01-31'
+         ORDER BY date ASC LIMIT 1) q2
+    """
+}
 
 # ---- OIL ----
 "11. Oil Price Trend":
