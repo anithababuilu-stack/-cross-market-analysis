@@ -125,42 +125,49 @@ GROUP BY year
 """,
 
 # ---- STOCKS ----
-"16. S&P 500 Trend":
+"16. Get all stock prices for a given ticker":
+"""
+SELECT *
+FROM Stock_prices
+WHERE ticker IN ("^GSPC", "^IXIC", "^NSEI")
+ORDER BY date
+""",
+
+"17. Find the highest closing price for NASDAQ (^IXIC)":
 """
 SELECT Date, Close
-FROM stock_prices
-WHERE ticker='^GSPC'
-ORDER BY Date
+FROM Stock_prices
+WHERE ticker = '^IXIC'
+ORDER BY Close DESC
+LIMIT 1;
 """,
 
-"17. NASDAQ Trend":
+"18. List top 5 days with highest price difference (high - low) for S&P 500 (^GSPC)":
 """
-SELECT Date, Close
-FROM stock_prices
-WHERE ticker='^IXIC'
-ORDER BY Date
+SELECT date, high, low, (high - low) AS daily_range
+FROM Stock_prices
+WHERE ticker = '^GSPC'
+ORDER BY daily_range DESC
+LIMIT 5;
 """,
 
-"18. NIFTY Trend":
+"19. Get monthly average closing price for each ticker":
 """
-SELECT Date, Close
-FROM stock_prices
-WHERE ticker='^NSEI'
-ORDER BY Date
+SELECT
+    ticker,
+    strftime('%Y-%m', date) AS year_month,
+    AVG(close) AS avg_close
+FROM Stock_prices
+GROUP BY ticker, year_month
+ORDER BY ticker, year_month;
 """,
 
-"19. Average Close by Index":
+"20.Get average trading volume of NSEI in 2024":
 """
-SELECT ticker, AVG(Close)
-FROM stock_prices
-GROUP BY ticker
-""",
-
-"20. Highest Stock Close":
-"""
-SELECT ticker, MAX(Close)
-FROM stock_prices
-GROUP BY ticker
+SELECT Date, AVG(Volume) AS Avg_Volume
+FROM Stock_prices
+WHERE ticker = '^NSEI'
+AND date BETWEEN '2024-01-01' AND '2024-12-31';
 """,
 
 # ---- CROSS MARKET ----
