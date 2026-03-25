@@ -82,74 +82,46 @@ ORDER BY avg_price DESC
 LIMIT 1;
 """,
 
- "10. Bitcoin % Change (2025 vs 2026)": CP_query5_2025 = """
-SELECT price_inr FROM Crypto_Prices
-WHERE coin_id='bitcoin'
-AND date BETWEEN '2025-03-01' AND '2025-07-31'
-ORDER BY date LIMIT 1
-"""
-
-cursor.execute(CP_query5_2025)
-result1 = cursor.fetchall()
-
-print(result1)
-
-
-
-
-CP_query5_2026 = """
-SELECT price_inr FROM Crypto_Prices
-WHERE coin_id='bitcoin'
-AND date BETWEEN '2025-08-01' AND '2026-01-31'
-ORDER BY date LIMIT 1
-"""
-
-cursor.execute(CP_query5_2026)
-result2 = cursor.fetchone()
-print(result2)
-
-price_2025 = float(result1[0][0])   # first element of the first row
-price_2026 = float(result2[0])      # first element of the tuple from fetchone()
-
-# Calculate percentage change
-percent_change = ((price_2026 - price_2025) / price_2025) * 100
-
-print("Bitcoin % change:", round(percent_change,2), "%")""",
-
-
 # ---- OIL ----
-"11. Oil Price Trend":
+"11.Find the highest oil price in the last 5 years.":
 """
-SELECT Date, Price
-FROM oil_prices
-ORDER BY Date
+SELECT date, price
+FROM Oil_prices
+WHERE date BETWEEN '2021-01-01' AND '2026-01-31'
+ORDER BY price DESC
+LIMIT 1
 """,
 
-"12. Average Oil Price":
+"12. Get the average oil price per year":
 """
-SELECT AVG(Price)
-FROM oil_prices
-""",
-
-"13. Highest Oil Price":
-"""
-SELECT MAX(Price)
-FROM oil_prices
-""",
-
-"14. Oil Price by Year":
-"""
-SELECT SUBSTR(Date,1,4) AS year, AVG(Price)
-FROM oil_prices
+SELECT strftime('%Y', date) AS year,AVG(price) AS avg_price
+FROM Oil_prices
 GROUP BY year
+ORDER BY year
 """,
 
-"15. Top 10 Oil Prices":
+"13. Show oil prices during COVID crash (March–April 2020":
 """
-SELECT Date, Price
-FROM oil_prices
-ORDER BY Price DESC
-LIMIT 10
+SELECT date, price
+FROM Oil_prices
+WHERE date BETWEEN '2020-03-01' AND '2020-04-30'
+ORDER BY date;
+""",
+
+"14.Find the lowest price of oil in the last 10 years.":
+"""
+SELECT date, price
+FROM Oil_prices
+WHERE date BETWEEN '2016-01-01' AND '2026-01-31'
+ORDER BY price ASC
+LIMIT 1
+""",
+
+"15.Calculate the volatility of oil prices (max-min difference per year)":
+"""
+SELECT strftime('%Y', date) AS year,MAX(price) - MIN(price) AS volatility
+FROM Oil_prices
+GROUP BY year
 """,
 
 # ---- STOCKS ----
