@@ -50,7 +50,7 @@ WHERE total_volume > 1000000000
 # ---- CRYPTO PRICES ----
 "6. Find the highest daily price of Bitcoin in the last 365 days":
 """
-SSELECT date, price_inr
+SELECT date, price_inr
 FROM Crypto_Prices
 WHERE coin_id = 'bitcoin'
 ORDER BY price_inr DESC
@@ -84,19 +84,23 @@ LIMIT 1;
 
  "10. Bitcoin % Change (2025 vs 2026)": """
     SELECT 
-        (
-            (result2.price_inr - result1.price_inr) * 100.0 / result1.price_inr
-        ) AS percent_change
+        ROUND(((result2.price_inr - result1.price_inr) * 100.0 / result1.price_inr),2) AS percent_change
     FROM 
-        (SELECT price_inr FROM Crypto_Prices
-WHERE coin_id='bitcoin'
-AND date BETWEEN '2025-03-01' AND '2025-07-31'
-ORDER BY date LIMIT 1)result1
-        
-        (SELECT price_inr FROM Crypto_Prices
-WHERE coin_id='bitcoin'
-AND date BETWEEN '2025-08-01' AND '2026-01-31'
-ORDER BY date LIMIT 1) result2
+        (SELECT price_inr
+        FROM Crypto_prices
+        WHERE coin_id = 'bitcoin'
+          AND date BETWEEN '2025-03-01' AND '2025-07-31'
+        ORDER BY date ASC
+        LIMIT 1
+    ) q1
+CROSS JOIN
+    (
+        SELECT price_inr
+        FROM Crypto_prices
+        WHERE coin_id = 'bitcoin'
+          AND date BETWEEN '2025-08-01' AND '2025-09-30'
+        ORDER BY date ASC
+        LIMIT 1) result2
     """,
 
 
