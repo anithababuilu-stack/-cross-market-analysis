@@ -122,7 +122,7 @@ LIMIT 10
 "16. S&P 500 Trend":
 """
 SELECT Date, Close
-FROM stocks_all
+FROM stock_prices
 WHERE ticker='^GSPC'
 ORDER BY Date
 """,
@@ -130,7 +130,7 @@ ORDER BY Date
 "17. NASDAQ Trend":
 """
 SELECT Date, Close
-FROM stocks_all
+FROM stock_prices
 WHERE ticker='^IXIC'
 ORDER BY Date
 """,
@@ -138,7 +138,7 @@ ORDER BY Date
 "18. NIFTY Trend":
 """
 SELECT Date, Close
-FROM stocks_all
+FROM stock_prices
 WHERE ticker='^NSEI'
 ORDER BY Date
 """,
@@ -146,14 +146,14 @@ ORDER BY Date
 "19. Average Close by Index":
 """
 SELECT ticker, AVG(Close)
-FROM stocks_all
+FROM stock_prices
 GROUP BY ticker
 """,
 
 "20. Highest Stock Close":
 """
 SELECT ticker, MAX(Close)
-FROM stocks_all
+FROM stock_prices
 GROUP BY ticker
 """,
 
@@ -171,7 +171,7 @@ WHERE cp.coin_id='bitcoin'
 """
 SELECT cp.date, cp.price_inr, sp.Close
 FROM Crypto_prices cp
-JOIN stocks_all sp
+JOIN stock_prices sp
 ON cp.date = sp.Date
 WHERE cp.coin_id='bitcoin'
 AND sp.ticker='^GSPC'
@@ -181,7 +181,7 @@ AND sp.ticker='^GSPC'
 """
 SELECT cp.date, cp.price_inr, sp.Close
 FROM Crypto_prices cp
-JOIN stocks_all sp
+JOIN stock_prices sp
 ON cp.date = sp.Date
 WHERE cp.coin_id='bitcoin'
 AND sp.ticker='^IXIC'
@@ -191,7 +191,7 @@ AND sp.ticker='^IXIC'
 """
 SELECT cp.date, cp.price_inr, sp.Close
 FROM Crypto_prices cp
-JOIN stocks_all sp
+JOIN stock_prices sp
 ON cp.date = sp.Date
 WHERE cp.coin_id='bitcoin'
 AND sp.ticker='^NSEI'
@@ -201,7 +201,7 @@ AND sp.ticker='^NSEI'
 """
 SELECT op.Date, op.Price, sp.Close
 FROM oil_prices op
-JOIN stocks_all sp
+JOIN stock_prices sp
 ON op.Date = sp.Date
 WHERE sp.ticker='^GSPC'
 """,
@@ -214,7 +214,7 @@ WHERE sp.ticker='^GSPC'
 "SELECT COUNT(*) FROM oil_prices",
 
 "28. Stock Records Count":
-"SELECT COUNT(*) FROM stocks_all",
+"SELECT COUNT(*) FROM stock_prices",
 
 "29. Earliest Crypto Date":
 "SELECT MIN(date) FROM Crypto_prices",
