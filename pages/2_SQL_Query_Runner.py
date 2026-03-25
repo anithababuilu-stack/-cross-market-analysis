@@ -178,6 +178,7 @@ FROM Crypto_prices cp
 JOIN oil_prices op
 ON cp.date = op.Date
 WHERE cp.coin_id='bitcoin'
+WHERE strftime('%Y', date) = '2025'
 """,
 
 "22. Bitcoin vs S&P500":
@@ -187,27 +188,45 @@ FROM Crypto_prices cp
 JOIN stock_prices sp
 ON cp.date = sp.Date
 WHERE cp.coin_id='bitcoin'
-AND sp.ticker='^GSPC'
+AND sp.ticker='^GSPC'+
+ORDER BY cp.date
 """,
 
-"23. Bitcoin vs NASDAQ":
+"23. Compare Ethereum and NASDAQ daily prices for 2025":
 """
-SELECT cp.date, cp.price_inr, sp.Close
-FROM Crypto_prices cp
-JOIN stock_prices sp
-ON cp.date = sp.Date
-WHERE cp.coin_id='bitcoin'
-AND sp.ticker='^IXIC'
+SELECT 'Ethereum' AS asset, price_inr AS price,date
+FROM Crypto_Prices
+WHERE coin_id = 'ethereum' AND date BETWEEN '2025-01-01' AND '2025-12-31'
+
+UNION ALL
+
+SELECT 'NASDAQ' AS asset, Close AS price,date
+FROM Stock_prices
+WHERE ticker = '^IXIC'
 """,
 
-"24. Bitcoin vs NIFTY":
+"24..Find days when oil price spiked and compare with Bitcoin price change":
 """
-SELECT cp.date, cp.price_inr, sp.Close
-FROM Crypto_prices cp
-JOIN stock_prices sp
-ON cp.date = sp.Date
-WHERE cp.coin_id='bitcoin'
-AND sp.ticker='^NSEI'
+WITH Oil_Returns AS (
+    SELECT
+        Date,
+        Price,
+        LAG(Price) OVER (ORDER BY Date) AS prev_price,
+        ((Price - LAG(Price) OVER (ORDER BY Date)) / LAG(Price) OVER (ORDER BY Date)) * 100 AS oil_return
+    FROM Oil_prices
+    WHERE Date BETWEEN '2025-01-01' AND '2025-12-31'
+)
+SELECT
+    oil.Date,
+    oil.Price AS oil_price,
+    oil.oil_return,
+    crp.price_inr AS bitcoin_price
+FROM Oil_Returns oil
+LEFT JOIN Crypto_Prices crp ON oil.Date=crp.date
+AND crp.coin_id = 'bitcoin'
+
+WHERE oil.oil_return > 5
+ORDER BY oil.Date;
 """,
 
 "25. Oil vs S&P500":
