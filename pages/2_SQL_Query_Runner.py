@@ -10,82 +10,95 @@ conn = sqlite3.connect("Market.db")
 queries = {
 
 # ---- CRYPTO TABLE ----
-"1. List All Cryptocurrencies":
-"SELECT * FROM Cryptocurrencies",
-
-"2. Top 10 Cryptos by Market Cap":
+"1. Find the top 3 cryptocurrencies by market cap":
 """
-SELECT name, market_cap
+SELECT id, symbol, name, market_cap
 FROM Cryptocurrencies
 ORDER BY market_cap DESC
-LIMIT 10
+LIMIT 3
 """,
 
-"3. Highest ATH Crypto":
+"2. List all coins where circulating supply exceeds 90% of total supply":
 """
-SELECT name, ath
+SELECT id, symbol, name,circulating_supply,total_supply
 FROM Cryptocurrencies
-ORDER BY ath DESC
-LIMIT 10
+WHERE circulating_supply >= 0.9 * total_supply
 """,
 
-"4. Crypto with Highest Volume":
+"3. Get coins that are within 10% of their all-time-high (ATH)":
 """
-SELECT name, total_volume
+SELECT id, symbol, name,current_price,ath
 FROM Cryptocurrencies
-ORDER BY total_volume DESC
-LIMIT 10
+WHERE current_price >= 0.9 * ath
 """,
 
-"5. Top 5 Market Cap Rank":
+"4. Get the most recently updated coin":
 """
-SELECT name, market_cap_rank
+SELECT id, symbol, name, date
 FROM Cryptocurrencies
-ORDER BY market_cap_rank ASC
-LIMIT 5
+ORDER BY date DESC
+LIMIT 1
+""",
+
+"5. Find the average market cap rank of coins with volume above $1B":
+"""
+SELECT AVG(market_cap_rank) AS avg_market_cap_rank
+FROM Cryptocurrencies
+WHERE total_volume > 1000000000
 """,
 
 # ---- CRYPTO PRICES ----
-"6. Bitcoin Price Trend":
+"6. Find the highest daily price of Bitcoin in the last 365 days":
 """
-SELECT date, price_inr
-FROM Crypto_prices
-WHERE coin_id='bitcoin'
-ORDER BY date
+SSELECT date, price_inr
+FROM Crypto_Prices
+WHERE coin_id = 'bitcoin'
+ORDER BY price_inr DESC
+LIMIT 1
 """,
 
-"7. Ethereum Price Trend":
+"7. .Caculate the average daily price of Ethereum in the past 1 year":
 """
-SELECT date, price_inr
-FROM Crypto_prices
-WHERE coin_id='ethereum'
-ORDER BY date
+SELECT AVG(price_inr) AS avg_price
+FROM Crypto_Prices
+WHERE coin_id = 'ethereum'
 """,
 
-"8. Average Crypto Price":
+"8. Show the daily price trend of Bitcoin in March 2025 ":
 """
-SELECT coin_id, AVG(price_inr) as avg_price
-FROM Crypto_prices
+SELECT date, price_inr
+FROM Crypto_Prices
+WHERE coin_id = 'bitcoin'
+AND date BETWEEN '2025-03-01' AND '2025-03-31'
+ORDER BY date;
+""",
+
+ "9. Find the coin with the highest average price over 1 year ":
+"""
+SELECT coin_id, AVG(price_inr) AS avg_price
+FROM Crypto_Prices
 GROUP BY coin_id
+ORDER BY avg_price DESC
+LIMIT 1;
 """,
 
  "10. Bitcoin % Change (2025 vs 2026)": """
     SELECT 
         (
-            (q2.price_inr - q1.price_inr) * 100.0 / q1.price_inr
+            (result2.price_inr - result1.price_inr) * 100.0 / result1.price_inr
         ) AS percent_change
     FROM 
-        (SELECT price_inr FROM Crypto_prices
-         WHERE coin_id='bitcoin'
-         AND date BETWEEN '2025-03-01' AND '2025-07-31'
-         ORDER BY date ASC LIMIT 1) q1,
+        (SELECT price_inr FROM Crypto_Prices
+WHERE coin_id='bitcoin'
+AND date BETWEEN '2025-03-01' AND '2025-07-31'
+ORDER BY date LIMIT 1)result1
         
-        (SELECT price_inr FROM Crypto_prices
-         WHERE coin_id='bitcoin'
-         AND date BETWEEN '2025-08-01' AND '2026-01-31'
-         ORDER BY date ASC LIMIT 1) q2
-    """
-}
+        (SELECT price_inr FROM Crypto_Prices
+WHERE coin_id='bitcoin'
+AND date BETWEEN '2025-08-01' AND '2026-01-31'
+ORDER BY date LIMIT 1) result2
+    """,
+
 
 # ---- OIL ----
 "11. Oil Price Trend":
